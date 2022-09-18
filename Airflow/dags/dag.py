@@ -13,7 +13,7 @@ This is the main dag that runs on an hourly schedule.
 # Defining constants 
 
 S3_BUCKET = 'udacity-dend'
-S3_SONG_KEY = 'song_data/A/A/A'
+S3_SONG_KEY = 'song_data'
 S3_LOG_KEY = 'log_data/{execution_date.year}/{execution_date.month}'
 LOG_JSON_PATH = f's3://{S3_BUCKET}/log_json_path.json'
 REGION = 'us-west-2'
