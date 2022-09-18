@@ -36,6 +36,6 @@ After all the data are loaded in appropriate fact and dimension tables, a data q
 
 The following picture shows that all the opeators are executed successfully without any errors:
 
-
+![Dependency Task Graph](./dagworkflow.png)
 
 
