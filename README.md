@@ -42,16 +42,26 @@ The following picture shows that all the opeators are executed successfully with
 # Required Settings in Airflow
 
 1. Create aws_credentials
+
   a. Conn Id : aws_credentials
+  
   b. Conn Type : Amazon Web Services
+  
   c. Login : AWS Access Key for the IAM user
+  
   d. Password: AWS Access Secret Key
   
 
 2. Create redshift connection details
+
   a. Conn Id : redshift
+  
   b. Conn Type : Postgres
+  
   c. Host : Redshift Cluster Endpoint url
+  
   d. user : IAM User with admin previleges
+  
   e. password : redshift db user password
+  
   f. host : 5439
