@@ -10,6 +10,11 @@ from airflow.operators.postgres_operator import PostgresOperator
 from airflow.operators.python_operator import PythonOperator
 from helpers import CreateTables
 
+'''
+This is a preliminary dag to drop and create required
+fact and dimension tables.
+'''
+
 REDSHIFT_CONN_ID='redshift'
 
 dag = DAG(
