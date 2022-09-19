@@ -13,15 +13,13 @@ This is the main dag that runs on an hourly schedule.
 # Defining constants 
 
 S3_BUCKET = 'udacity-dend'
-S3_SONG_KEY = 'song_data/A/A/A'
+S3_SONG_KEY = 'song_data'
 S3_LOG_KEY = 'log_data/{execution_date.year}/{execution_date.month}'
 LOG_JSON_PATH = f's3://{S3_BUCKET}/log_json_path.json'
 REGION = 'us-west-2'
 AWS_CREDENTIALS_ID = 'aws_credentials'
 REDSHIFT_CONN_ID = 'redshift'
 DAG_ID = 'dag'
-
-
 
 default_args = {
     'owner': 'udacity',
@@ -122,19 +120,21 @@ load_time_dimension_table = LoadDimensionOperator(
 )
 #declare a list of tables that is passed on to DataQualityOperator as an arg
 test_tables = ['staging_events', 'staging_songs', 'songplays', 'users', 'songs', 'artists', 'time']
+test_cases = ["select count(*) from users where gender = 'F'","select count(*) from artists where location like '%Denver%'","select count(*) from songs where year = 2009"]
+expected_results = [1500,20,21]
 
 run_quality_checks = DataQualityOperator(
     task_id='Run_data_quality_checks',
     postgres_conn_id=REDSHIFT_CONN_ID,
     tables=test_tables,
+    tests=test_cases,
+    results=expected_results,
     dag=dag
 )
-
 
 end_operator = DummyOperator(task_id='Stop_execution',  dag=dag)
 
 #invoke the operators with appropriate dependency
-
 
 start_operator >> stage_events_to_redshift
 start_operator >> stage_songs_to_redshift
@@ -155,7 +155,4 @@ load_time_dimension_table >> run_quality_checks
 
 #end of dag execution
 run_quality_checks >> end_operator
-
-
-
 
